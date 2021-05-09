@@ -1,8 +1,12 @@
 require_relative 'board'
+require_relative 'player'
 require 'pry'
 class Game
   def initialize(board = Board.new)
     @board = board
+    @player1 = Player.new
+    @player2 = Player.new
+    @current_player = @player1
   end
 
   # Main game loop. This is a looping script that
@@ -31,5 +35,14 @@ class Game
       end
       puts 'Invalid input, please input a value between 1-7'
     end
+  end
+
+  def update_player
+    if @current_player == @player1
+      @current_player = @player2
+    else
+      @current_player = @player1
+    end
+    
   end
 end

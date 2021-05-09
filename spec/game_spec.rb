@@ -43,16 +43,25 @@ describe Game do
 
   describe "#update_player" do
     subject(:game_update) { described_class.new }
-    before do
-      player1 = game_update.instance_variable_get(:@player1)
-      player2 = game_update.instance_variable_get(:@player2)
-    end
     context 'When current player is player1' do
       it 'sets current player to player2' do
-        game_update.set_instance_variable(:@current_player, player1)
+        player1 = game_update.instance_variable_get(:@player1)
+        player2 = game_update.instance_variable_get(:@player2)
+        game_update.instance_variable_set(:@current_player, player1)
         game_update.update_player
-        new_player = game_update.get_instance_variable(:@current_player)
+        new_player = game_update.instance_variable_get(:@current_player)
         expect(new_player).to equal(player2)
+      end
+    end
+
+    context 'when current player is player2' do
+      it 'sets current player to player1' do
+        player1 = game_update.instance_variable_get(:@player1)
+        player2 = game_update.instance_variable_get(:@player2)
+        game_update.instance_variable_set(:@current_player, player2)
+        game_update.update_player
+        new_player = game_update.instance_variable_get(:@current_player)
+        expect(new_player).to equal(player1)
       end
     end
   end
