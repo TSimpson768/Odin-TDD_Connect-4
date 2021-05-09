@@ -1,3 +1,5 @@
+require_relative 'board'
+require 'pry'
 class Game
   def initialize(board = Board.new)
     @board = board
@@ -16,6 +18,18 @@ class Game
       break if @board.won?
 
       update_player
+    end
+  end
+
+  
+  def parse_input
+    input_regex = /^[1-7]$/
+    loop do
+      player_input = gets.chomp
+      if input_regex.match?(player_input)
+        return player_input.to_i
+      end
+      puts 'Invalid input, please input a value between 1-7'
     end
   end
 end
