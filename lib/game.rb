@@ -18,7 +18,7 @@ class Game
   def play
     loop do
       input = parse_input
-      @board.insert(input)
+      @board.insert(input, @current_player.counter)
       break if @board.won?
 
       update_player
