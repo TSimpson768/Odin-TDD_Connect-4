@@ -63,8 +63,21 @@ describe Board do
     end
   
     context 'when there is 4 same coloured counters in a column' do
-      xit 'returns true' do
-        
+      subject(:board_column) {described_class.new}
+      before do
+        board = Array.new(42, nil)
+        board[8] = counter_red
+        board[15] = counter_red
+        board[22] = counter_red
+        board[29] = counter_red
+        board[1] = counter_blue
+        board[0] = counter_blue
+        board[7] = counter_blue
+        board[6] = counter_blue
+        board_column.instance_variable_set(:@board, board)
+      end
+      it 'returns true' do
+        expect(board_column).to be_won
       end
     end
     context 'When there is 4 same coloured counters on a diagonal' do

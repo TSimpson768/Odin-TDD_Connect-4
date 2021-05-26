@@ -26,7 +26,7 @@ class Board
   end
 
   def won?
-    winning_lines = winning_rows # I really want this to be a constant, set at initiazation
+    winning_lines = winning_rows + winning_columns # I really want this to be a constant, set at initiazation
     winning_lines.each do |line|
       return true if line.all? { |pos| !@board[pos].nil? && @board[pos] == @board[line[0]] }
     end
@@ -51,7 +51,15 @@ class Board
   end
 
   def winning_columns
-    
+    columns = (0..@rows - 4).reduce([]) { |mem, row_number| mem.push([0, 7, 14, 21].map { |col_number| col_number + row_number * 7 }) }
+    return_columns = columns.reduce([]) { |mem, column| mem.push(all_alligned_columns(column))}
+    return_columns.flatten(1)
+  end
+
+  def all_alligned_columns(column)
+    (0..@columns-1).reduce([]) do |alligned_columns, column_offset|
+      alligned_columns.push(column.map {|column_number| column_number + column_offset})
+    end
   end
 
   def winning_diagonals
