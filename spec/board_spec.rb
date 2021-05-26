@@ -80,9 +80,45 @@ describe Board do
         expect(board_column).to be_won
       end
     end
-    context 'When there is 4 same coloured counters on a diagonal' do
-      xit 'returns true' do
-        
+    context 'When there is 4 same coloured counters on a / diagonal' do
+      subject(:board_rising_diagonal) { described_class.new }
+      before do
+        board = Array.new(42, nil)
+        board[2] = counter_blue
+        board[10] = counter_blue
+        board[18] = counter_blue
+        board[26] = counter_blue
+        board[3] = counter_red
+        board[4] = counter_red
+        board[11] = counter_red
+        board[5] = counter_red
+        board[12] = counter_red
+        board[19] = counter_red
+        board[6] = counter_blue
+        board_rising_diagonal.instance_variable_set(:@board, board)
+      end
+      it 'returns true' do
+        expect(board_rising_diagonal).to be_won  
+      end  
+    end
+    context 'When there is 4 same coloured counters on a \ diagonal' do
+      subject(:board_falling_diagonal) { described_class.new }
+      before do
+        board = Array.new(42, nil)
+        board[6] = counter_blue
+        board[12] = counter_blue
+        board[18] = counter_blue
+        board[24] = counter_blue
+        board[5] = counter_red
+        board[4] = counter_red
+        board[11] = counter_red
+        board[3] = counter_red
+        board[10] = counter_red
+        board[17] = counter_red
+        board_falling_diagonal.instance_variable_set(:@board, board)
+      end
+      it 'returns true' do
+        expect(board_falling_diagonal).to be_won
       end  
     end
     context 'When a game is in progress with no winning lines' do
