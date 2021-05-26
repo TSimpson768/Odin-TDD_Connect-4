@@ -33,6 +33,10 @@ class Board
     false
   end
 
+  def full?
+    @board.all? { |value| value }
+  end
+
   private
 
   def winning_rows

@@ -26,11 +26,11 @@ describe Board do
       before do
         part_filled_board.instance_variable_set(:@board, board)
       end
-      xit 'inserts counter into @board[input - 1 + 7]' do
-        part_filled_board.insert(input, counter_red)
-        updated_board = part_filled_board.instance_variable_get(:@board)
-        expect(updated_board[updated_place]).to eq(counter_red)
-      end
+      # xit 'inserts counter into @board[input - 1 + 7]' do
+      #   part_filled_board.insert(input, counter_red)
+      #   updated_board = part_filled_board.instance_variable_get(:@board)
+      #   expect(updated_board[updated_place]).to eq(counter_red)
+      # end
 
       it 'does not change the rest of the board' do
         part_filled_board.insert(input, counter_red)
@@ -152,6 +152,42 @@ describe Board do
       end
       it 'returns false' do
         expect(board_over).not_to be_won
+      end
+    end
+  end
+  describe '#full?' do
+    context 'When board is not full' do
+      subject(:board_not_full) { described_class.new }
+      before do
+        board = Array.new(42, nil)
+        board[0] = counter_red
+        board[1] = counter_red
+        board[5] = counter_red
+        board[6] = counter_red
+        board[2] = counter_blue
+        board[3] = counter_blue
+        board[4] = counter_blue
+        board[7] = counter_blue
+        board_not_full.instance_variable_set(:@board, board)
+      end
+      it 'returns false' do
+        expect(board_not_full).not_to be_full
+      end
+    end
+
+    context 'when board is full' do
+      subject(:board_full) { described_class.new }
+      before do
+        board = [ counter_blue, counter_blue, counter_red ,counter_red , counter_red , counter_blue ,counter_blue,
+                  counter_blue, counter_blue, counter_red ,counter_red , counter_red , counter_blue, counter_blue,
+                  counter_red, counter_blue , counter_blue , counter_blue, counter_red, counter_red, counter_red,
+                  counter_blue, counter_red, counter_blue, counter_red, counter_blue, counter_blue, counter_blue,
+                  counter_blue, counter_red, counter_blue, counter_red, counter_blue, counter_red, counter_blue, 
+                  counter_blue, counter_red, counter_red, counter_red, counter_blue, counter_red, counter_blue]
+        board_full.instance_variable_set(:@board, board)
+      end
+      it 'returns true' do
+        expect(board_full).to be_full  
       end
     end
   end
