@@ -122,13 +122,36 @@ describe Board do
       end  
     end
     context 'When a game is in progress with no winning lines' do
-      xit 'returns false' do
-        
+      subject(:board_in_progress) { described_class.new }
+      before do
+        board = Array.new(42, nil)
+        board[0] = counter_red
+        board[1] = counter_red
+        board[5] = counter_red
+        board[6] = counter_red
+        board[2] = counter_blue
+        board[3] = counter_blue
+        board[4] = counter_blue
+        board[7] = counter_blue
+        board_in_progress.instance_variable_set(:@board, board)
+      end
+      it 'returns false' do
+       expect(board_in_progress).not_to be_won  
       end
     end
     context 'When a board is full with no wins' do
-      xit 'returns false' do
-        
+      subject(:board_over) { described_class.new }
+      before do
+        board = [ counter_blue, counter_blue, counter_red ,counter_red , counter_red , counter_blue ,counter_blue,
+                  counter_blue, counter_blue, counter_red ,counter_red , counter_red , counter_blue, counter_blue,
+                  counter_red, counter_blue , counter_blue , counter_blue, counter_red, counter_red, counter_red,
+                  counter_blue, counter_red, counter_blue, counter_red, counter_blue, counter_blue, counter_blue,
+                  counter_blue, counter_red, counter_blue, counter_red, counter_blue, counter_red, counter_blue, 
+                  counter_blue, counter_red, counter_red, counter_red, counter_blue, counter_red, counter_blue]
+        board_over.instance_variable_set(:@board, board)
+      end
+      it 'returns false' do
+        expect(board_over).not_to be_won
       end
     end
   end
