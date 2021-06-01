@@ -3,4 +3,5 @@ class Player
     @name = name
     @counter = counter
   end
+  attr_reader :name, :counter
 end
