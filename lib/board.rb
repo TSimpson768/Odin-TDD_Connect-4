@@ -37,6 +37,18 @@ class Board
     @board.all? { |value| value }
   end
 
+  def print_board
+    line_end = @columns*@rows
+    line_start = line_end - @columns
+    until line_start.negative?
+      print_divider
+      print_line(@board[line_start..line_end])
+      line_start -= 7
+      line_end -= 7
+    end
+    print_divider
+  end
+
   private
 
   def winning_rows
@@ -73,5 +85,18 @@ class Board
     diagonals = rising_diagonals + falling_diagonals
     return_diagonals = diagonals.reduce([]) {|mem, diagonal| mem.push(all_alligned_rows(diagonal, 4))}
     return_diagonals.flatten(1)
+  end
+
+  def print_divider
+    puts '---------------------------------------------------'
+  end
+
+  # Takes an array an prints them to the console in the format | value |
+  def print_line(line)
+    line.each do |value|
+      print '|'
+      print value.nil? ? ' ': value
+    end
+    print '|'
   end
 end

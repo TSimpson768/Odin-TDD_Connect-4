@@ -191,5 +191,27 @@ describe Board do
       end
     end
   end
+  describe '#print_board' do
+    subject(:board_print) {described_class.new}
+    before do
+      board = Array.new(42, nil)
+      board[0] = counter_red
+      board[1] = counter_red
+      board[5] = counter_red
+      board[6] = counter_red
+      board[2] = counter_blue
+      board[3] = counter_blue
+      board[4] = counter_blue
+      board[7] = counter_blue
+      board_print.instance_variable_set(:@board, board)
+      allow(board_print).to receive(:print_divider)
+      allow(board_print).to receive(:print_line)
+    end
 
+    it 'Calls print line for every row (exactly 6 times)' do
+      num_rows = board_print.instance_variable_get(:@rows)
+      expect(board_print).to receive(:print_line).exactly(num_rows).times
+      board_print.print_board
+    end
+  end
 end
