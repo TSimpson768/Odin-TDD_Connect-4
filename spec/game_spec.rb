@@ -65,4 +65,34 @@ describe Game do
       end
     end
   end
+
+  describe '#game_over' do
+    context 'When board is won' do
+      subject(:game_won) { described_class.new }
+      before do
+        won_board = instance_double("Board")
+        allow(won_board).to receive(:won?).and_return(true)
+        game_won.instance_variable_set(:@board, won_board)
+        allow(game_won).to receive(:puts)
+      end
+      it 'puts current_player has won' do
+        current_player = game_won.instance_variable_get(:@current_player)
+        expect(game_won).to receive(:puts).with("#{current_player.name} has won!")
+        game_won.game_over
+      end
+    end
+
+    context 'when board is not won' do
+      subject(:game_not_won) { described_class.new }
+      before do
+        not_won_board = instance_double("Board")
+        allow(not_won_board).to receive(:won?).and_return(false)
+        allow(game_not_won).to receive(:puts)
+      end
+      it "puts it's a tie!" do
+        expect(game_not_won).to receive(:puts).with("It's a tie!")
+        game_not_won.game_over
+      end
+    end
+  end
 end
