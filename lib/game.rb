@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'board'
 require_relative 'player'
 require 'pry'
@@ -11,7 +13,7 @@ class Game
 
   # Main game loop. This is a looping script that
   # puts Question for input
-  # Get and validate input is valid. 
+  # Get and validate input is valid.
   # Update the board.
   # Check if the game has been won. If so, break
   # Update the current player.
@@ -27,26 +29,23 @@ class Game
     game_over
   end
 
-  
   def parse_input
     input_regex = /^[1-7]$/
     loop do
-      puts "Choose a column to place a counter in [1-7]"
+      puts 'Choose a column to place a counter in [1-7]'
       player_input = gets.chomp
-      if input_regex.match?(player_input) && !@board.column_full?(player_input.to_i)
-        return player_input.to_i
-      end
+      return player_input.to_i if input_regex.match?(player_input) && !@board.column_full?(player_input.to_i)
+
       puts 'Invalid input, please input a value between 1-7'
     end
   end
 
   def update_player
-    if @current_player == @player1
-      @current_player = @player2
-    else
-      @current_player = @player1
-    end
-    
+    @current_player = if @current_player == @player1
+                        @player2
+                      else
+                        @player1
+                      end
   end
 
   def game_over

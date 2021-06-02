@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require '../lib/board'
 describe Board do
   counter_red = '🔴'
@@ -42,17 +44,17 @@ describe Board do
 
   describe 'won?' do
     context 'when board is empty' do
-      subject(:empty_board) {described_class.new}
+      subject(:empty_board) { described_class.new }
       it 'returns false' do
         expect(empty_board).not_to be_won
       end
     end
     context 'When there is 4 same coloured counters in a row' do
-      subject(:board_row) {described_class.new}
+      subject(:board_row) { described_class.new }
       before do
         board = Array.new(42, nil)
         board[0] = counter_blue
-        board[1]= counter_blue
+        board[1] = counter_blue
         board[2] = counter_blue
         board[3] = counter_blue
         board_row.instance_variable_set(:@board, board)
@@ -61,9 +63,9 @@ describe Board do
         expect(board_row).to be_won
       end
     end
-  
+
     context 'when there is 4 same coloured counters in a column' do
-      subject(:board_column) {described_class.new}
+      subject(:board_column) { described_class.new }
       before do
         board = Array.new(42, nil)
         board[8] = counter_red
@@ -98,8 +100,8 @@ describe Board do
         board_rising_diagonal.instance_variable_set(:@board, board)
       end
       it 'returns true' do
-        expect(board_rising_diagonal).to be_won  
-      end  
+        expect(board_rising_diagonal).to be_won
+      end
     end
     context 'When there is 4 same coloured counters on a \ diagonal' do
       subject(:board_falling_diagonal) { described_class.new }
@@ -119,7 +121,7 @@ describe Board do
       end
       it 'returns true' do
         expect(board_falling_diagonal).to be_won
-      end  
+      end
     end
     context 'When a game is in progress with no winning lines' do
       subject(:board_in_progress) { described_class.new }
@@ -136,18 +138,18 @@ describe Board do
         board_in_progress.instance_variable_set(:@board, board)
       end
       it 'returns false' do
-       expect(board_in_progress).not_to be_won  
+        expect(board_in_progress).not_to be_won
       end
     end
     context 'When a board is full with no wins' do
       subject(:board_over) { described_class.new }
       before do
-        board = [ counter_blue, counter_blue, counter_red ,counter_red , counter_red , counter_blue ,counter_blue,
-                  counter_blue, counter_blue, counter_red ,counter_red , counter_red , counter_blue, counter_blue,
-                  counter_red, counter_blue , counter_blue , counter_blue, counter_red, counter_red, counter_red,
-                  counter_blue, counter_red, counter_blue, counter_red, counter_blue, counter_blue, counter_blue,
-                  counter_blue, counter_red, counter_blue, counter_red, counter_blue, counter_red, counter_blue, 
-                  counter_blue, counter_red, counter_red, counter_red, counter_blue, counter_red, counter_blue]
+        board = [counter_blue, counter_blue, counter_red, counter_red, counter_red, counter_blue, counter_blue,
+                 counter_blue, counter_blue, counter_red, counter_red, counter_red, counter_blue, counter_blue,
+                 counter_red, counter_blue, counter_blue, counter_blue, counter_red, counter_red, counter_red,
+                 counter_blue, counter_red, counter_blue, counter_red, counter_blue, counter_blue, counter_blue,
+                 counter_blue, counter_red, counter_blue, counter_red, counter_blue, counter_red, counter_blue,
+                 counter_blue, counter_red, counter_red, counter_red, counter_blue, counter_red, counter_blue]
         board_over.instance_variable_set(:@board, board)
       end
       it 'returns false' do
@@ -178,21 +180,21 @@ describe Board do
     context 'when board is full' do
       subject(:board_full) { described_class.new }
       before do
-        board = [ counter_blue, counter_blue, counter_red ,counter_red , counter_red , counter_blue ,counter_blue,
-                  counter_blue, counter_blue, counter_red ,counter_red , counter_red , counter_blue, counter_blue,
-                  counter_red, counter_blue , counter_blue , counter_blue, counter_red, counter_red, counter_red,
-                  counter_blue, counter_red, counter_blue, counter_red, counter_blue, counter_blue, counter_blue,
-                  counter_blue, counter_red, counter_blue, counter_red, counter_blue, counter_red, counter_blue, 
-                  counter_blue, counter_red, counter_red, counter_red, counter_blue, counter_red, counter_blue]
+        board = [counter_blue, counter_blue, counter_red, counter_red, counter_red, counter_blue, counter_blue,
+                 counter_blue, counter_blue, counter_red, counter_red, counter_red, counter_blue, counter_blue,
+                 counter_red, counter_blue, counter_blue, counter_blue, counter_red, counter_red, counter_red,
+                 counter_blue, counter_red, counter_blue, counter_red, counter_blue, counter_blue, counter_blue,
+                 counter_blue, counter_red, counter_blue, counter_red, counter_blue, counter_red, counter_blue,
+                 counter_blue, counter_red, counter_red, counter_red, counter_blue, counter_red, counter_blue]
         board_full.instance_variable_set(:@board, board)
       end
       it 'returns true' do
-        expect(board_full).to be_full  
+        expect(board_full).to be_full
       end
     end
   end
   describe '#print_board' do
-    subject(:board_print) {described_class.new}
+    subject(:board_print) { described_class.new }
     before do
       board = Array.new(42, nil)
       board[0] = counter_red

@@ -1,17 +1,18 @@
-require "../lib/game"
+# frozen_string_literal: true
+
+require '../lib/game'
 
 describe Game do
-  describe "#play" do
-    
+  describe '#play' do
   end
 
-  describe "#parse_input" do
+  describe '#parse_input' do
     subject(:game_parse) { described_class.new }
     invalid_message = 'Invalid input, please input a value between 1-7'
     before do
       allow(game_parse).to receive(:puts)
     end
-    context "When player inputs a number between 1-7" do
+    context 'When player inputs a number between 1-7' do
       before do
         allow(game_parse).to receive(:gets).and_return("5\n")
       end
@@ -60,7 +61,7 @@ describe Game do
     end
   end
 
-  describe "#update_player" do
+  describe '#update_player' do
     subject(:game_update) { described_class.new }
     context 'When current player is player1' do
       it 'sets current player to player2' do
@@ -89,7 +90,7 @@ describe Game do
     context 'When board is won' do
       subject(:game_won) { described_class.new }
       before do
-        won_board = instance_double("Board")
+        won_board = instance_double('Board')
         allow(won_board).to receive(:won?).and_return(true)
         allow(won_board).to receive(:print_board)
         game_won.instance_variable_set(:@board, won_board)
@@ -105,7 +106,7 @@ describe Game do
     context 'when board is not won' do
       subject(:game_not_won) { described_class.new }
       before do
-        not_won_board = instance_double("Board")
+        not_won_board = instance_double('Board')
         allow(not_won_board).to receive(:print_board)
         allow(not_won_board).to receive(:won?).and_return(false)
         game_not_won.instance_variable_set(:@board, not_won_board)

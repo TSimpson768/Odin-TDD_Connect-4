@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 # Board of a connect 4 game. @board represents the board
 # in the order
@@ -22,11 +23,10 @@ class Board
     else
       @board[column - 1] = counter
     end
-    
   end
 
   def won?
-    winning_lines = winning_rows + winning_columns + winning_diagonals# I really want this to be a constant, set at initiazation
+    winning_lines = winning_rows + winning_columns + winning_diagonals # I really want this to be a constant, set at initiazation
     winning_lines.each do |line|
       return true if line.all? { |pos| !@board[pos].nil? && @board[pos] == @board[line[0]] }
     end
@@ -38,7 +38,7 @@ class Board
   end
 
   def print_board
-    line_end = @columns*@rows - 1
+    line_end = @columns * @rows - 1
     line_start = line_end - 6
     puts '| 1| 2| 3| 4| 5| 6| 7|'
     until line_start.negative?
@@ -49,6 +49,7 @@ class Board
     end
     print_divider
   end
+
   # int -> bool
   # Returns true if the given column is full (i.e if column + 34 !nil). Else return false
   def column_full?(column)
@@ -59,37 +60,51 @@ class Board
 
   def winning_rows
     rows = []
-    (0..3).each do | number |
-      rows.push([0,1,2,3].map {|win_number| win_number + number})
+    (0..3).each do |number|
+      rows.push([0, 1, 2, 3].map { |win_number| win_number + number })
     end
-    rows_to_return = rows.reduce([]) { | winning_rows, row | winning_rows.push(all_alligned_rows(row))}
+    rows_to_return = rows.reduce([]) { |winning_rows, row| winning_rows.push(all_alligned_rows(row)) }
     rows_to_return.flatten(1)
   end
 
   # Kinda mislading name. Generates all lines parralel to a given row, upto the @row-offset row
   def all_alligned_rows(row, offset = 1)
-    (0..@rows-offset).reduce([]) do |alligned_rows, row_height |
-      alligned_rows.push(row.map {|row_number| row_number + row_height * 7})
+    (0..@rows - offset).reduce([]) do |alligned_rows, row_height|
+      alligned_rows.push(row.map { |row_number| row_number + row_height * 7 })
     end
   end
 
   def winning_columns
-    columns = (0..@rows - 4).reduce([]) { |mem, row_number| mem.push([0, 7, 14, 21].map { |col_number| col_number + row_number * 7 }) }
-    return_columns = columns.reduce([]) { |mem, column| mem.push(all_alligned_columns(column))}
+    columns = (0..@rows - 4).reduce([]) do |mem, row_number|
+      mem.push([0, 7, 14, 21].map do |col_number|
+                 col_number + row_number * 7
+               end)
+    end
+    return_columns = columns.reduce([]) { |mem, column| mem.push(all_alligned_columns(column)) }
     return_columns.flatten(1)
   end
 
   def all_alligned_columns(column)
-    (0..@columns-1).reduce([]) do |alligned_columns, column_offset|
-      alligned_columns.push(column.map {|column_number| column_number + column_offset})
+    (0..@columns - 1).reduce([]) do |alligned_columns, column_offset|
+      alligned_columns.push(column.map { |column_number| column_number + column_offset })
     end
   end
 
   def winning_diagonals
-    rising_diagonals = (0..@columns-4).reduce([]) { |mem, column_number| mem.push([0, 8, 16, 24].map { |diagonal_number| diagonal_number + column_number})  }
-    falling_diagonals = (0..@columns-4).reduce([]) { |mem, column_number| mem.push([21, 15, 9, 3].map { |diagonal_number| diagonal_number + column_number})  }
+    rising_diagonals = (0..@columns - 4).reduce([]) do |mem, column_number|
+      mem.push([0, 8, 16,
+                24].map do |diagonal_number|
+                 diagonal_number + column_number
+               end)
+    end
+    falling_diagonals = (0..@columns - 4).reduce([]) do |mem, column_number|
+      mem.push([21, 15, 9,
+                3].map do |diagonal_number|
+                 diagonal_number + column_number
+               end)
+    end
     diagonals = rising_diagonals + falling_diagonals
-    return_diagonals = diagonals.reduce([]) {|mem, diagonal| mem.push(all_alligned_rows(diagonal, 4))}
+    return_diagonals = diagonals.reduce([]) { |mem, diagonal| mem.push(all_alligned_rows(diagonal, 4)) }
     return_diagonals.flatten(1)
   end
 
@@ -101,7 +116,7 @@ class Board
   def print_line(line)
     line.each do |value|
       print '|'
-      print value.nil? ? '  ': "#{value}"
+      print value.nil? ? '  ' : value.to_s
     end
     print "|\n"
   end
