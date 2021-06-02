@@ -91,6 +91,7 @@ describe Game do
       before do
         won_board = instance_double("Board")
         allow(won_board).to receive(:won?).and_return(true)
+        allow(won_board).to receive(:print_board)
         game_won.instance_variable_set(:@board, won_board)
         allow(game_won).to receive(:puts)
       end
@@ -105,7 +106,9 @@ describe Game do
       subject(:game_not_won) { described_class.new }
       before do
         not_won_board = instance_double("Board")
+        allow(not_won_board).to receive(:print_board)
         allow(not_won_board).to receive(:won?).and_return(false)
+        game_not_won.instance_variable_set(:@board, not_won_board)
         allow(game_not_won).to receive(:puts)
       end
       it "puts it's a tie!" do
