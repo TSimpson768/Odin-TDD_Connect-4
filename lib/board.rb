@@ -48,6 +48,11 @@ class Board
     end
     print_divider
   end
+  # int -> bool
+  # Returns true if the given column is full (i.e if column + 34 !nil). Else return false
+  def column_full?(column)
+    @board[column + 34]
+  end
 
   private
 

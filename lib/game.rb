@@ -33,7 +33,7 @@ class Game
     loop do
       puts "Choose a column to place a counter in [1-7]"
       player_input = gets.chomp
-      if input_regex.match?(player_input)
+      if input_regex.match?(player_input) && !@board.column_full?(player_input.to_i)
         return player_input.to_i
       end
       puts 'Invalid input, please input a value between 1-7'

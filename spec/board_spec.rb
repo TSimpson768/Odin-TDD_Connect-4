@@ -214,4 +214,24 @@ describe Board do
       board_print.print_board
     end
   end
+  describe '#column_full' do
+    subject(:board_column) { described_class.new }
+    before do
+      board = Array.new(42, nil)
+      board[0] = board[7] = board[14] = board[28] = board[35] = counter_red
+      board[1] = board[21] = board[8] = board[15] = board[2] = counter_blue
+      board_column.instance_variable_set(:@board, board)
+    end
+    it 'returns true for a full column' do
+      expect(board_column).to be_column_full(1)
+    end
+
+    it 'returns false for a partially full column' do
+      expect(board_column).not_to be_column_full(2)
+    end
+
+    it 'returns false for an empty column' do
+      expect(board_column).not_to be_column_full(4)
+    end
+  end
 end

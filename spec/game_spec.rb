@@ -39,6 +39,25 @@ describe Game do
         expect(result).to eq(4)
       end
     end
+
+    context 'When an full column is selected, followed by an empty column' do
+      before do
+        allow(game_parse).to receive(:gets).and_return("1\n", "2\n")
+        board_column = instance_double('Board')
+        allow(board_column).to receive(:column_full?).with(1).and_return(true)
+        allow(board_column).to receive(:column_full?).with(2).and_return(false)
+        game_parse.instance_variable_set(:@board, board_column)
+      end
+      it 'Puts invalid_message once' do
+        expect(game_parse).to receive(:puts).with(invalid_message).once
+        game_parse.parse_input
+      end
+
+      it 'returns 2' do
+        result = game_parse.parse_input
+        expect(result).to eq(2)
+      end
+    end
   end
 
   describe "#update_player" do
