@@ -3,7 +3,7 @@
 require_relative 'board'
 require_relative 'player'
 require 'pry'
-# The game class is responsible for controlling fame flow
+# The game class is responsible for controlling game flow
 class Game
   def initialize(board = Board.new)
     @board = board

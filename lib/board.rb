@@ -29,7 +29,8 @@ class Board
 
   # Return true if 4 identical counters in a row are detected anywhere. Else return false
   def won?
-    winning_lines = winning_rows + winning_columns + winning_diagonals # I really want this to be a constant, set at initiazation
+    # I really want this to be a constant, set at initiazation
+    winning_lines = winning_rows + winning_columns + winning_diagonals
     winning_lines.each do |line|
       return true if line.all? { |pos| !@board[pos].nil? && @board[pos] == @board[line[0]] }
     end
@@ -96,21 +97,25 @@ class Board
   end
 
   def winning_diagonals
-    rising_diagonals = (0..@columns - 4).reduce([]) do |mem, column_number|
-      mem.push([0, 8, 16,
-                24].map do |diagonal_number|
-                 diagonal_number + column_number
-               end)
-    end
-    falling_diagonals = (0..@columns - 4).reduce([]) do |mem, column_number|
-      mem.push([21, 15, 9,
-                3].map do |diagonal_number|
-                 diagonal_number + column_number
-               end)
-    end
     diagonals = rising_diagonals + falling_diagonals
     return_diagonals = diagonals.reduce([]) { |mem, diagonal| mem.push(all_alligned_rows(diagonal, 4)) }
     return_diagonals.flatten(1)
+  end
+
+  def rising_diagonals
+    (0..@columns - 4).reduce([]) do |mem, column_number|
+      mem.push([0, 8, 16, 24].map do |diagonal_number|
+        diagonal_number + column_number
+      end)
+    end
+  end
+
+  def falling_diagonals
+    (0..@columns - 4).reduce([]) do |mem, column_number|
+      mem.push([21, 15, 9, 3].map do |diagonal_number|
+        diagonal_number + column_number
+      end)
+    end
   end
 
   def print_divider
