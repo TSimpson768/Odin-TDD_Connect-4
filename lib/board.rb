@@ -17,6 +17,8 @@ class Board
     @board = Array.new(num_spaces, nil)
   end
 
+  # Inserts the given counter into the given column of the board.
+  # 7 columns. The counter is placed in the highest free space
   def insert(column, counter)
     if @board[column - 1]
       insert(column + 7, counter)
@@ -25,6 +27,7 @@ class Board
     end
   end
 
+  # Return true if 4 identical counters in a row are detected anywhere. Else return false
   def won?
     winning_lines = winning_rows + winning_columns + winning_diagonals # I really want this to be a constant, set at initiazation
     winning_lines.each do |line|
@@ -33,10 +36,12 @@ class Board
     false
   end
 
+  # Return true if every space in the board contains a counter. Else false
   def full?
     @board.all? { |value| value }
   end
 
+  # Print the board to the console
   def print_board
     line_end = @columns * @rows - 1
     line_start = line_end - 6

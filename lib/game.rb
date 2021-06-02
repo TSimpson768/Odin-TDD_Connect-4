@@ -3,6 +3,7 @@
 require_relative 'board'
 require_relative 'player'
 require 'pry'
+# The game class is responsible for controlling fame flow
 class Game
   def initialize(board = Board.new)
     @board = board
@@ -29,6 +30,7 @@ class Game
     game_over
   end
 
+  # Solicits an input from the user, and ensures it is valid
   def parse_input
     input_regex = /^[1-7]$/
     loop do
@@ -48,6 +50,7 @@ class Game
                       end
   end
 
+  # Prints the game result
   def game_over
     puts 'Game over'
     @board.print_board
