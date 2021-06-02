@@ -40,6 +40,7 @@ class Board
   def print_board
     line_end = @columns*@rows - 1
     line_start = line_end - 6
+    puts '| 1| 2| 3| 4| 5| 6| 7|'
     until line_start.negative?
       print_divider
       print_line(@board[line_start..line_end])
@@ -100,7 +101,7 @@ class Board
   def print_line(line)
     line.each do |value|
       print '|'
-      print value.nil? ? '  ': value
+      print value.nil? ? '  ': "#{value}"
     end
     print "|\n"
   end

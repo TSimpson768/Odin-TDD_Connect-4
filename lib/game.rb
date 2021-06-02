@@ -51,6 +51,7 @@ class Game
 
   def game_over
     puts 'Game over'
+    @board.print_board
     if @board.won?
       puts "#{@current_player.name} has won!"
     else
