@@ -38,8 +38,8 @@ class Board
   end
 
   def print_board
-    line_end = @columns*@rows
-    line_start = line_end - @columns
+    line_end = @columns*@rows - 1
+    line_start = line_end - 6
     until line_start.negative?
       print_divider
       print_line(@board[line_start..line_end])
@@ -93,15 +93,15 @@ class Board
   end
 
   def print_divider
-    puts '---------------------------------------------------'
+    puts '-----------------------'
   end
 
   # Takes an array an prints them to the console in the format | value |
   def print_line(line)
     line.each do |value|
       print '|'
-      print value.nil? ? ' ': value
+      print value.nil? ? '  ': value
     end
-    print '|'
+    print "|\n"
   end
 end
